@@ -3,7 +3,7 @@ class Player
 
     def initialize(color, name)
         @color = color
-        @choices = [[],[],[],[],[],[]]
+        @choices = [[],[],[],[],[],[],[]]
         @turn = nil
         @name = name
     end
@@ -38,12 +38,20 @@ class ConnectFour
         gameloop
     end
 
-
     def print_display
-        self.board.each do |row| 
-            print row
+        counter = 5
+        6.times do
+            self.board.each do |row| 
+                if row[counter].is_a?(String) == false 
+                    print " - "
+                else
+                    print " #{row[counter]} "
+                end
+            end
             puts
+            counter -= 1
         end
+        puts " 1  2  3  4  5  6  7 "
     end
 
     def get_choice(player)
@@ -58,8 +66,13 @@ class ConnectFour
 
     # subtract 1 from column because array indexes begin at 0
     def add_choice_to_board(column, player)
-        if self.board[column.to_i - 1].length <7
+        if self.board[column.to_i - 1].length < 6
             self.board[column.to_i - 1].push(player.color)
+            player.choices[column.to_i - 1].push(self.board[column.to_i - 1].length - 1)
+            print player.choices
+            puts
+        else
+            # add case for if column height already exceeds 6
         end
     end
 end
