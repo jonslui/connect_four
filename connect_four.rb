@@ -22,11 +22,11 @@ class ConnectFour
 
 
     def gameloop
+        print_display
         if self.white.turn == nil || self.white.turn == true
             self.white
             choice = get_choice(self.white)
             add_choice_to_board(choice, self.white)
-
             if check_for_win(self.white) == true
                 print_display
                 return
@@ -43,7 +43,6 @@ class ConnectFour
             end
             self.white.turn = true
         end
-        print_display
         gameloop
     end
 
@@ -53,7 +52,7 @@ class ConnectFour
         6.times do
             self.board.each do |row| 
                 if row[counter].is_a?(String) == false 
-                    print " - "
+                    print "   "
                 else
                     print " #{row[counter]} "
                 end
@@ -91,12 +90,7 @@ class ConnectFour
     def add_choice_to_board(column, player)
         if self.board[column.to_i - 1].length < 6
             self.board[column.to_i - 1].push(player.color)
-            player.choices[column.to_i - 1].push(self.board[column.to_i - 1].length - 1)
-            print player.choices
-            puts
-        else
-            # add case for if column height already exceeds 6
-
+            player.choices[column.to_i - 1].push(self.board[column.to_i - 1].length - 1)  
         end
     end
 
@@ -172,8 +166,5 @@ class ConnectFour
     end
 end
 
-
-
-
 new_game = ConnectFour.new
-new_game.gameloop
+new_game.gameloop 
