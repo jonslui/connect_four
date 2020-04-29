@@ -86,6 +86,7 @@ class ConnectFour
         return choice
     end
 
+
     # subtract 1 from column because array indexes begin at 0
     def add_choice_to_board(column, player)
         if self.board[column.to_i - 1].length < 6
@@ -139,9 +140,32 @@ class ConnectFour
             counter +=1
         end
 
-        # check for diagonal win
-        # 24 cases, 12 mirrored
 
+        # check for diagonal win
+        row_counter = 0
+        3.times do 
+            column_counter = 0
+            4.times do
+                # check for diagonal from left to right
+                if player.choices[column_counter].include?(row_counter) == true
+                    if player.choices[column_counter + 1].include?(row_counter + 1) == true && player.choices[column_counter + 2].include?(row_counter + 2) == true && player.choices[column_counter + 3].include?(row_counter + 3) == true
+                        puts "#{player.name} wins!"
+                        return true
+                    end
+                end
+
+                # check for diagonal from right to left
+                if player.choices[6 - column_counter].include?(row_counter) == true
+                    if player.choices[6 - column_counter - 1].include?(row_counter + 1) == true && player.choices[6 - column_counter - 2].include?(row_counter + 2) == true && player.choices[6 - column_counter - 3].include?(row_counter + 3) == true
+                        puts "#{player.name} wins!"
+                        return true
+                    end
+                end
+
+            column_counter += 1
+            end
+            row_counter += 1
+        end
         
 
         return false
